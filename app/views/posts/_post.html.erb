@@ -4,7 +4,7 @@
     <h3><%= link_to post.title, post_path(post) %></h3>
     <p><%= post.description[0..25] %></p>
     <p>
-      <span class='quiet'>posted by</span> <%= post.creator.username %>
+      <span class='quiet'>posted by</span>
       <small>at <%= post.created_at %></small>
     </p>
     <small>
