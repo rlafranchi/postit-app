@@ -2,8 +2,9 @@
   <div class="well span8">
     <% if @post.errors.any? %>
       <div class="alert alert-error">
+        <h5>The Following Errors Occured:</h5>
         <ul>
-          <% @post.errors.each do |error| %>
+          <% @post.errors.full_messages.each do |error| %>
             <li><%= error %></li>
           <% end %>
         </ul>
@@ -23,7 +24,7 @@
         <%= f.label :url %>
         <%= f.text_field :url %>
       </div>
-      <%= f.submit "Create Post", class: 'btn-btn-primary' %>
+      <%= f.submit(@post.new_record? ? "Create Post" : "Update Post", class: 'btn btn-primary') %>
     <% end %>
   </div>
 </div>
