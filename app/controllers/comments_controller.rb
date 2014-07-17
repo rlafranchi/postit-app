@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.new(params.require(:comment).permit(:body))
     @post.comments << @comment
-    @comment.users << User.first
+    @comment.user_id = User.first
 
     if @comment.save
       flash[:notice] = "Your comment was added"
