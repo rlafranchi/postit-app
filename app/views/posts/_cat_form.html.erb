@@ -1,4 +1,0 @@
-<%= form_for @post do |f| %>
-  <%= f.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true %>
-  <%= f.submit "Add", class: 'btn btn-primary' %>
-<% end %>
