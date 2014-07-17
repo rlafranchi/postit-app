@@ -12,8 +12,12 @@
 </p>
 
 <h5>Add a Comment</h5>
+<%= render 'shared/errors', obj: @comment %>
 <%= form_for [@post, @comment] do |f| %>
   <%= f.text_area :body %>
   <br />
   <%= f.submit "Add Comment", class: 'btn btn-primary' %>
 <% end %>
+
+<h3>Comments:</h3>
+<%= render @post.comments %>
