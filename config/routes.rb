@@ -4,4 +4,7 @@ PostitTemplate::Application.routes.draw do
     resources :comments, only: [:create]
   end
   resources :categories
+
+  get 'register', to: 'users#new'
+  resources :users
 end
