@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
   before_action :require_user, except: [:index, :show]
-  before_action :require_creator, except: [:index, :show, :create]
+  before_action :require_creator, except: [:new, :index, :show, :create]
 
   def index
     @posts = Post.all
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:notice] = "Your post was created."
-      redirect_to posts_path
+      redirect_to user_path(@post.creator)
     else
       render :new
     end
