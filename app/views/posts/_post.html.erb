@@ -7,6 +7,7 @@
     <% end %>
     <%= render post.categories %>
     <h3><%= link_to post.title, post_path(post) %></h3>
+    <h5>URL: <%= link_to post.url, fix_url(post.url) %></h5>
     <p><%= post.description[0..25] %></p>
     <p>
       <span class='quiet'>posted by</span>

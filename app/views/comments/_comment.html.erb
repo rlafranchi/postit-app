@@ -1,4 +1,7 @@
 <div class="well span6">
+  <% if show %>
+    <h5>Commented on <%= link_to comment.post.title, post_path(comment.post) %></h5>
+  <% end %>
   <em>"<%= comment.body %>"</em>
-  by <%= comment.creator.username %> at <%= display_datetime(comment.created_at) %>
+  by <%= link_to comment.creator.username, user_path(comment.creator) %> at <%= display_datetime(comment.created_at) %>
 </div>
