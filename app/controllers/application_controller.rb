@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def require_creator
+    if logged_in? && @post.creator != current_user
+      flash[:notice] = "You didn't create that post"
+      redirect_to root_path
+    end
+  end
 end

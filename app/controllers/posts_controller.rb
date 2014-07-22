@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
   before_action :require_user, except: [:index, :show]
+  before_action :require_creator, except: [:index, :show, :create]
 
   def index
     @posts = Post.all
@@ -16,6 +17,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.creator = current_user
 
     if @post.save
       flash[:notice] = "Your post was created."
