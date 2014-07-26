@@ -2,7 +2,7 @@
   <li>
     <%= link_to "Postit!", root_path, :class => 'brand' %>
   </li>
-  <% if !logged_in? %>
+  <% unless logged_in? %>
     <li>
       <%= link_to 'Log In', login_path %>
     </li>
@@ -25,7 +25,7 @@
     <% Category.all.each do |category| %>
       <li><%= link_to category.name, category_path(category) %></li>
     <% end %>
-    <% if logged_in? %>
+    <% if logged_in? && admin? %>
       <li class="divider"></li>
       <li>
         <%= link_to(new_category_path) do %>

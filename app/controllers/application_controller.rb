@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :admin?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -13,19 +13,26 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def admin?
+    current_user.role == 'admin'
+  end
+
   private
 
+  def not_permitted
+    flash[:notice] = "Not Allowed!"
+    redirect_to root_path
+  end
+
   def require_user
-    if !logged_in?
-      flash[:notice] = "Please log in"
-      redirect_to root_path
-    end
+    not_permitted unless logged_in?
   end
 
   def require_creator
-    if logged_in? && @post.creator != current_user
-      flash[:notice] = "You didn't create that post"
-      redirect_to root_path
-    end
+    not_permitted unless logged_in? && @post.creator == current_user
+  end
+
+  def require_admin
+    not_permitted unless logged_in? && admin?
   end
 end

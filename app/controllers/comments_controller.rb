@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :require_user
 
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     @comment = Comment.new(params.require(:comment).permit(:body))
     @post.comments << @comment
     @comment.creator = current_user
@@ -19,11 +19,9 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
 
-    if @vote.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:notice] = "You can only vote for that once."
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "Your vote was counted." }
+      format.js
     end
-    redirect_to :back
   end
 end
